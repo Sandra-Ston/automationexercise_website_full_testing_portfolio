@@ -1,0 +1,10 @@
+{
+  "user": {
+    "username": "TestUser",
+    "email": "userTest",
+    "password": "TestPassword123",
+    "day": "1",
+    "month": "January",
+    "year": "1990"
+  }
+}
