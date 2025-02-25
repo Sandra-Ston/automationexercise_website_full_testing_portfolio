@@ -1,8 +1,8 @@
 /// <reference types = "cypress" />
 
-describe("User Registration", () => {
-  it('should register a new user', () => {
-    // 1. - 2.
+describe('Test Case 1: Register User', () => {
+  it('should register a new user successfully', () => {
+    // 1. - 2.  Launch browser and Navigate to url
     cy.visit('https://automationexercise.com/');
     // 3. Verify home page loads
     cy.get("a[href='/login']").should("be.visible");

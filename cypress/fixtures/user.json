@@ -1,7 +1,7 @@
 {
   "user": {
     "username": "TestUser",
-    "email": "userTest",
+    "email": "newUser@test.com",
     "password": "TestPassword123",
     "day": "1",
     "month": "January",
