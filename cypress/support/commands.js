@@ -58,6 +58,8 @@ Cypress.Commands.add('loginOrRegisterAndLoginUser', (username, email, password) 
   });
 });
 
+import 'cypress-file-upload';
+
 /*Cypress.Commands.add('deleteUser', () => {
   cy.get('.nav').contains('Delete Account').click();
   cy.get('h2[data-qa="account-deleted"]').should('be.visible').and('have.text', 'Account Deleted!');
