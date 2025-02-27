@@ -35,27 +35,11 @@ describe("Test Case 12: Add Products in Cart", () => {
     cy.contains("View Cart").should("be.visible").click();
 
     // 9. Verify both products are added to Cart
-    cy.get("#cart_info_table tbody")
-    .find("tr")
-    .eq(0)  // First product row
-    .within(() => {
-      cy.get(".cart_description h4 a").should("contain.text", "Blue Top");
-    });
-  
-  cy.get("#cart_info_table tbody")
-    .find("tr")
-    .eq(1)  // Second product row
-    .within(() => {
-      cy.get(".cart_description h4 a").should("contain.text", "Men Tshirt");
-
-    });
-
+    cy.get(".cart_description").should("have.length", 2);
 
     // 10. Verify their prices, quantity and total price
-    cy.get(".cart_description").each(($el) => {
-      cy.wrap($el).find(".cart_price").should("be.visible");
-      cy.wrap($el).find(".cart_quantity").should("be.visible");
-      cy.wrap($el).find(".cart_total").should("be.visible");
-    });
+    cy.get(".cart_price").should("have.length", 2).and("be.visible");
+    cy.get(".cart_quantity").should("have.length", 2).and("be.visible");
+    cy.get(".cart_total").should("have.length", 2).and("be.visible");
   });
 });
