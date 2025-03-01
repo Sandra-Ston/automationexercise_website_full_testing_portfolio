@@ -14,7 +14,7 @@ describe("Test Case 12: Add Products in Cart", () => {
 
     // 5. Hover over first product and click 'Add to cart'
     cy.get(".features_items .product-image-wrapper")
-      .first()
+      .eq(0)
       .trigger("mouseover")
       .within(() => {
         cy.contains("Add to cart").click();
