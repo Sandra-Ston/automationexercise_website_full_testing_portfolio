@@ -2,6 +2,7 @@
 Cypress.Commands.add("registerUser", (username, email, password) => {
   cy.visit("https://automationexercise.com/");
   cy.contains("Signup / Login").click();
+
   cy.get("input[data-qa='signup-name']").type(username);
   cy.get("input[data-qa='signup-email']").type(email);
   cy.get("button[data-qa='signup-button']").click();

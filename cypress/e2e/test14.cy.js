@@ -1,7 +1,7 @@
 /// <reference types = "cypress" />
 
 describe("Test Case 14: Place Order: Register while Checkout", () => {
-  it("", () => {
+  it("should proceed checkout then login and place order successfully", () => {
     // 1. Launch browser & 2. Navigate to URL
     cy.visit("https://automationexercise.com");
 
@@ -60,26 +60,28 @@ describe("Test Case 14: Place Order: Register while Checkout", () => {
 
     //14. Verify Address Details and Review Your Order
     cy.get('[data-qa="checkout-info"]').should("be.visible");
-    
+
     //Delivery
     cy.get("#address_delivery").should("be.visible");
-    cy.get("#address_delivery .address_firstname address_lastname").should("contain.text", "Mr. Alice Enough");
-    cy.get("#address_delivery .address_address1 address_address2").should("contain.text", "Test Company");
-    cy.get("#address_delivery").should("contain.text", "123 Test Street");
-    cy.get("#address_delivery").should("contain.text", "Apt 200");
-    //cy.get("#address_delivery").should("contain.text", "Red Deer Alberta T4E 0B2");
-    cy.get("#address_delivery").should("contain.text", "Canada");
-    cy.get("#address_delivery").should("contain.text", "+1234567890");
-    
+    cy.get("#address_delivery .address_firstname.address_lastname").should("contain.text", "Mr. Alice Enough");
+    cy.get("#address_delivery .address_address1.address_address2").should("contain.text", "Test Company");
+    cy.get("#address_delivery .address_address1.address_address2").should("contain.text", "123 Test Street");
+    cy.get("#address_delivery .address_address1.address_address2").should("contain.text", "Apt 200");
+    cy.get("#address_delivery .address_city.address_state_name.address_postcode").should("contain.text", "Red Deer Alberta");
+    cy.get("#address_delivery .address_city.address_state_name.address_postcode").should("contain.text", "T4E 0B2");
+    cy.get("#address_delivery .address_country_name").should("contain.text", "Canada");
+    cy.get("#address_delivery .address_phone").should("contain.text", "+1234567890");
+
     //Billing
     cy.get("#address_invoice").should("be.visible");
     cy.get("#address_invoice .address_firstname ").should("contain.text", "Mr. Alice Enough");
-    cy.get("#address_invoice").should("contain.text", "Test Company");
-    cy.get("#address_invoice").should("contain.text", "123 Test Street");
-    cy.get("#address_invoice").should("contain.text", "Apt 200");
-    //cy.get("#address_invoice").should("contain.text", "Red Deer Alberta T4E 0B2");
-    cy.get("#address_invoice").should("contain.text", "Canada");
-    cy.get("#address_invoice").should("contain.text", "+1234567890");
+    cy.get("#address_invoice .address_address1.address_address2").should("contain.text", "Test Company");
+    cy.get("#address_invoice .address_address1.address_address2").should("contain.text", "123 Test Street");
+    cy.get("#address_invoice .address_address1.address_address2").should("contain.text", "Apt 200");
+    cy.get("#address_invoice .address_city.address_state_name.address_postcode").should("contain.text", "Red Deer Alberta");
+    cy.get("#address_invoice .address_city.address_state_name.address_postcode").should("contain.text", "T4E 0B2");
+    cy.get("#address_invoice .address_country_name").should("contain.text", "Canada");
+    cy.get("#address_invoice .address_phone").should("contain.text", "+1234567890");
 
     //Order
     cy.get("#cart_info").should("be.visible");
@@ -90,8 +92,8 @@ describe("Test Case 14: Place Order: Register while Checkout", () => {
       .within(() => {
         cy.get(".cart_description h4").should("contain.text", "Blue Top");
         cy.get(".cart_price p").should("contain.text", "Rs. 500");
-        //cy.get(".cart_quantity button").should("contain.text", "1");
-        //cy.get(".cart_total .cart_total_price").should("contain.text", "Rs. 500");
+        cy.get(".cart_quantity button").should("contain.text", "1");
+        cy.get(".cart_total .cart_total_price").should("contain.text", "Rs. 500");
       });
 
     //Men Tshirt
@@ -100,16 +102,17 @@ describe("Test Case 14: Place Order: Register while Checkout", () => {
       .within(() => {
         cy.get(".cart_description h4").should("contain.text", "Men Tshirt");
         cy.get(".cart_price p").should("contain.text", "Rs. 400");
-        //cy.get(".cart_quantity button").should("contain.text", "1");
-        //cy.get(".cart_total .cart_total_price").should("contain.text", "Rs. 400");
+        cy.get(".cart_quantity button").should("contain.text", "1");
+        cy.get(".cart_total .cart_total_price").should("contain.text", "Rs. 400");
       });
 
     //Total price
-    //cy.get(".cart_total_price").should("contain.text", "Rs. 900");
-
+    cy.get(".cart_total_price").should("contain.text", "Rs. 900");
 
     //15. Enter description in comment text area and click 'Place Order'
-    cy.get(".form-control").type("Please deliver between 9 AM - 5 PM. Other times I'll be hungry like a wolf");
+    cy.get(".form-control").type(
+      "Please deliver between 9 AM - 5 PM. Other times I'll be hungry like a wolf"
+    );
     cy.contains("Place Order").click();
 
     //16. Enter payment details: Name on Card, Card Number, CVC, Expiration date
@@ -120,11 +123,25 @@ describe("Test Case 14: Place Order: Register while Checkout", () => {
     cy.get('[data-qa="expiry-year"]').type("2025");
 
     //17. Click 'Pay and Confirm Order' button
+    cy.get("form#payment-form").then(($form) => {
+      $form.on("submit", (e) => {
+        e.preventDefault();
+      });
+    });
+
     cy.get('[data-qa="pay-button"]').click();
 
     //18. Verify success message 'Your order has been placed successfully!'
-   cy.get("#success_message > .alert-success").should("contain.text", "Your order has been placed successfully!");
-      cy.wait(1000);
+    cy.get("#success_message > .alert-success").should(
+      "contain.text",
+      "Your order has been placed successfully!"
+    );
+
+    cy.get("form#payment-form").then(($form) => {
+      $form.off("submit");
+    });
+    cy.get('[data-qa="pay-button"]').click();
+
     //19. Click 'Delete Account' button
     cy.contains("Delete Account").click();
     //20. Verify 'ACCOUNT DELETED!' and click 'Continue' button
