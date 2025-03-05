@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]  # Cypress is stable with Node.js 20
+        node-version: [20.x]
 
     steps:
       - name: Checkout repository
