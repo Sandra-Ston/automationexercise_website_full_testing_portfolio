@@ -32,7 +32,7 @@ jobs:
 
       - name: Upload Cypress screenshots and videos if tests fail
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-artifacts
           path: |
