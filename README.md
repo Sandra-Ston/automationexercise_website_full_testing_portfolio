@@ -1,7 +1,5 @@
 # Automation Exercise Website - Full Testing Portfolio
 
-[![Cypress Tests](https://img.shields.io/badge/Tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/) [![CI/CD](https://github.com/Sandra-Ston/automationexercise_website_full_testing_portfolio/actions/workflows/cypress-tests.yml/badge.svg)](https://github.com/Sandra-Ston/automationexercise_website_full_testing_portfolio/actions)
-
 This project is a comprehensive **test automation suite** for the [Automation Exercise](https://www.automationexercise.com/) website, developed using **Cypress**. It includes both **API and UI tests** to ensure the website's functionality and reliability.
 
 ## 📌 Overview
